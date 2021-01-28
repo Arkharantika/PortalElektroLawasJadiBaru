@@ -99,8 +99,26 @@ class TaController extends Controller
             'pembimbing1' => 'required',
             'pembimbing2' => 'required|different:pembimbing1',
         ]);
+
+        $pembimbing = 'pembimbing1';
+        $pembimbing2 = 'pembimbing2';
+        
+        $check = Pembimbing::join('ref_dosen','ref_dosen.id','=','ta_pembimbing.pembimbing')
+        ->where('ref_dosen.id',$request->$pembimbing)->where('pem',1)->where('status_pendadaranpem',null)->count();
+        
+        $check2 = Pembimbing::join('ref_dosen','ref_dosen.id','=','ta_pembimbing.pembimbing')
+        ->where('ref_dosen.id',$request->$pembimbing2)->where('pem',2)->where('status_pendadaranpem',null)->count();
+        
+        if($check >= 6){
+            return redirect('ta/pengajuan/pendaftaran')->with('message','Pembimbing 1 sudah penuh !');
+        }else if($check2 >=6){
+            return redirect('ta/pengajuan/pendaftaran')->with('message','Pembimbing 2 sudah penuh !');
+        }else{
+            $ta = Ta::create($validatedTa); 
+        }
+
         // dd($validatedData);
-        $ta = Ta::create($validatedTa);
+        
         $ta_id = $ta->id;
         if($ta){
 
