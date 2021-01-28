@@ -100,7 +100,7 @@ class TaController extends Controller
             'pembimbing2' => 'required|different:pembimbing1',
         ]);
 
-        
+
         $pembimbing = 'pembimbing1';
         $pembimbing2 = 'pembimbing2';
 

@@ -250,8 +250,33 @@ class ListController extends Controller
              'margin_footer'        => 25,
             // 'margin_bottom'        => 25,
           ];
-        $pdf = PDF::loadview('ta/draft/halpengesahan',compact('data','pem1','pem2','uji1','uji2','kaprodi','koorta','halpengesahan','ta'),[],$config);
-        return $pdf->stream();
+          $pendadaran = Pendadaran::join('ta','ta.id','=','ta_pendadaran.ta_id')->where('mahasiswa_id',$id)->get()->last();
+          $dayList = array(
+                  'Sun' => 'Minggu',
+                  'Mon' => 'Senin',
+                  'Tue' => 'Selasa',
+                  'Wed' => 'Rabu',
+                  'Thu' => 'Kamis',
+                  'Fri' => 'Jumat',
+                  'Sat' => 'Sabtu'
+              );
+              $monthList = array(
+                  'Jan' => 'Januari',
+                  'Feb' => 'Februari',
+                  'Mar' => 'Maret',
+                  'Apr' => 'April',
+                  'May' => 'Mei',
+                  'Jun' => 'Juni',
+                  'Jul' => 'Juli',
+                  'Aug' => 'Agustus',
+                  'Sep' => 'September',
+                  'Oct' => 'Oktober',
+                  'Nov' => 'November',
+                  'Dec' => 'Desember',
+              );
+          
+          $pdf = PDF::loadview('ta/draft/halpengesahan',compact('dayList','monthList','data','pem1','pem2','uji1','uji2','kaprodi','koorta','halpengesahan','ta','pendadaran'),[],$config);
+          return $pdf->stream();
     }
 
     /**
