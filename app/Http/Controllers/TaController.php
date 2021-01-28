@@ -100,9 +100,10 @@ class TaController extends Controller
             'pembimbing2' => 'required|different:pembimbing1',
         ]);
 
+        
         $pembimbing = 'pembimbing1';
         $pembimbing2 = 'pembimbing2';
-        
+
         $check = Pembimbing::join('ref_dosen','ref_dosen.id','=','ta_pembimbing.pembimbing')
         ->where('ref_dosen.id',$request->$pembimbing)->where('pem',1)->where('status_pendadaranpem',null)->count();
         
