@@ -110,10 +110,10 @@ class TaController extends Controller
         $check2 = Pembimbing::join('ref_dosen','ref_dosen.id','=','ta_pembimbing.pembimbing')
         ->where('ref_dosen.id',$request->$pembimbing2)->where('pem',2)->where('status_pendadaranpem',null)->count();
         
-        if($check >= 6){
-            return redirect('ta/pengajuan/pendaftaran')->with('message','Pembimbing 1 sudah penuh !');
-        }else if($check2 >=6){
-            return redirect('ta/pengajuan/pendaftaran')->with('message','Pembimbing 2 sudah penuh !');
+        if($check >= 1){
+            return redirect('ta/pengajuan/pendaftaran')->with('message','Maaf, Pembimbing 1 sudah penuh !');
+        }else if($check2 >=1){
+            return redirect('ta/pengajuan/pendaftaran')->with('message','Maaf, Pembimbing 2 sudah penuh !');
         }else{
             $ta = Ta::create($validatedTa); 
         }

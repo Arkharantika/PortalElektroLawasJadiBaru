@@ -1,6 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Controller;
+use App\Http\Controllers\Admin\KlarifikasiSemKPController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -58,6 +61,7 @@ Route::namespace('Admin')->prefix('admin')->name('admin.')->middleware('can:mana
 
 //Route Role Mahasiswa
 Route::name('kp.')->middleware('can:mahasiswa')->group(function(){
+
     //Route Kerja Pratek
     Route::get('kp/pendaftaran/cetak_form','KpController@cetak_form')->name('cetak.konsul');
     Route::get('kp/pelaksanaan/cetak_form_nilai','KpController@cetak_form_nilai')->name('cetak.formnilai');
@@ -65,6 +69,8 @@ Route::name('kp.')->middleware('can:mahasiswa')->group(function(){
     Route::get('kp/pendaftaran/{file}/download', 'KpController@viewFile')->name('pendaftaran.download');
     Route::post('kp/upload/{id}', 'KpController@StoreUpload')->name('pendaftaran.upload');
     Route::resource('kp/pendaftaran','KpController',['except' => ['create','show']]);
+    //Route::get('kp/presensi','KehadiranSemKPController@index')->name('index');
+
     //Route Selesai Kp
     Route::resource('kp/selesaikp', 'SelesaikpController',['only' => ['index','update']]);
 
@@ -72,6 +78,9 @@ Route::name('kp.')->middleware('can:mahasiswa')->group(function(){
     Route::get('kp/seminar/cetak_pengajuansemkp','SemkpController@cetak_pengajuansemkp')->name('cetak.pengajuansemkp');
     Route::get('kp/seminar/cetak_daftarhadir','SemkpController@cetak_daftarhadir')->name('cetak.daftarhadir');
     Route::get('kp/seminar/cetak_nilaipembimbing','SemkpController@cetak_nilai_pembimbing')->name('cetak.nilaipembimbing');
+    Route::get('kp/presensi','KehadiranSemKPController@index')->name('index');
+    Route::post('kp/presensi/mere','KehadiranSemKPController@store')->name('store');
+    
     Route::resource('kp/seminar','SemkpController',['except' => ['create','show']]);
     Route::resource('kp/laporan','LaporankpController',['only' => ['index','show','update']]);
 });
@@ -128,11 +137,14 @@ Route::namespace('Admin')->prefix('koordinator')->name('admin.')->middleware('ca
     Route::resource('/kp/laporan','Seminarkp\LaporanController',['only' => ['index','show','edit','update']]);
     Route::resource('/kp/nilaikp','Seminarkp\NilaikpController',['only' => ['index','show']]);
 
+
     //Report KP
     Route::resource('/reportpenugasan','Reportkp\ReportpenugasanController');
     Route::resource('/reportpermohonan','Reportkp\ReportpermohonanController');
     Route::resource('/reportbalasan','Reportkp\ReportbalasanController');
 });
+
+Route::resource('koordinatorkpdaftarhadir','SenpaiController');
 
 //Route Role Koordinator TA
 Route::namespace('Admin')->prefix('koordinator')->name('admin.')->middleware('can:koordinatorta')->group(function(){

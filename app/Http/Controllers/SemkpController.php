@@ -271,4 +271,9 @@ class SemkpController extends Controller
             return view('seminarkp.error_beluminput');
         }
     }
+
+    public function presensi_semkp(){
+
+        return view('kp.PresensiSeminar');
+    }
 }

@@ -302,6 +302,11 @@
                                 <span class="sidebar-mini-visible">KP</span><span class="sidebar-mini-hidden text-primary">Kerja Praktek</span>
                             </li>
                             <li>
+                            <a class="{{ request()->is('kp/seminar') || request()->is('kp/seminar/*') ? ' active' : '' }}" href="{{url('/kp/presensi')}}">
+                                    <i class="si si-note"></i><span class="sidebar-mini-hide">Presensi Seminar KP</span>
+                                </a>
+                            </li>
+                            <li>
                                 <a class="{{ request()->is('kp/pendaftaran') || request()->is('kp/pendaftaran/*') ? ' active' : '' }}" href="{{route('kp.pendaftaran.index')}}">
                                     <i class="si si-badge"></i><span class="sidebar-mini-hide">Pendaftaran KP</span>
                                 </a>
@@ -410,22 +415,20 @@
                             <li class="nav-main-heading">
                                 <span class="sidebar-mini-visible">KKP</span><span class="sidebar-mini-hidden text-primary">Koordinator KP</span>
                             </li>
-                            <li class="{{ request()->is('koordinator/kp/*') ? ' open' : '' }}">
-                                <a class="nav-submenu" data-toggle="nav-submenu" href="#"><i class="si si-bell"></i><span class="sidebar-mini-hide">Kerja Praktek</span></a>
-                                <ul>
+                            
                                     <li>
                                         <a class="{{ request()->is('koordinator/kp/pembimbing') || request()->is('koordinator/kp/pembimbing/*') ? ' active' : '' }}" href="{{route('admin.pembimbing.index')}}">
-                                            Pembimbing KP</a>
+                                        <i class="si si-users"></i>Pembimbing KP</a>
                                     </li>
                                     <li>
                                         <a class="{{ request()->is('koordinator/kp/pengajuan') || request()->is('koordinator/kp/pengajuan/*') ? ' active' : '' }}" href="{{route('admin.pengajuan.index')}}">
-                                            Pengajuan KP</a>
+                                        <i class="si si-doc"></i>Pengajuan KP</a>
                                     </li>
                                     <li>
                                         <a class="{{ request()->is('koordinator/kp/permohonan') || request()->is('koordinator/kp/permohonan/*') ||
                                         request()->is('koordinator/kp/balasan') || request()->is('koordinator/kp/balasan/*') ? ' active' : '' }}" 
                                         href="{{route('admin.permohonan.index')}}">
-                                            Permohonan & Surat Balasan KP</a>
+                                        <i class="si si-docs"></i>Permohonan & Surat Balasan KP</a>
                                     </li>
                                     <!-- <li>
                                         <a class="{{ request()->is('admin/kp/balasan') || request()->is('admin/kp/balasan/*') ? ' active' : '' }}" href="{{route('admin.balasan.index')}}">
@@ -433,37 +436,40 @@
                                     </li> -->
                                     <li>
                                         <a class="{{ request()->is('koordinator/kp/penugasan') || request()->is('koordinator/kp/penugasan/*') ? ' active' : '' }}" href="{{route('admin.penugasan.index')}}">
-                                            Penugasan KP</a>
+                                        <i class="si si-folder"></i>Penugasan KP</a>
                                     </li>
                                     <li>
                                         <a class="{{ request()->is('koordinator/kp/selesaikp') || request()->is('koordinator/kp/selesaikp/*') ? ' active' : '' }}" href="{{route('admin.selesaikp.index')}}">
-                                            Selesai KP</a>
+                                        <i class="si si-envelope"></i>Selesai KP</a>
                                     </li>
                                     <li class="nav-main-heading">
                                         <span class="sidebar-mini-visible">SKP</span><span class="sidebar-mini-hidden text-warning">Seminar KP</span>
                                     </li>
                                     <li>
                                         <a class="{{ request()->is('koordinator/kp/listsemkp') ? ' active' : '' }}" href="{{route('admin.listsemkp.index')}}">
-                                            List Countdown Seminar KP</a>
+                                        <i class="si si-clock"></i>List Countdown Seminar KP</a>
                                     </li>
                                     <li>
                                         <a class="{{ request()->is('koordinator/kp/seminarkp') || request()->is('koordinator/kp/seminarkp/*') ? ' active' : '' }}" href="{{route('admin.seminarkp.index')}}">
-                                            Pendaftaran Seminar KP</a>
+                                        <i class="si si-calendar"></i>Pendaftaran Seminar KP</a>
                                     </li>
                                     <li>
                                         <a class="{{ request()->is('koordinator/kp/presensi') || request()->is('koordinator/kp/presensi/*') ? ' active' : '' }}" href="{{route('admin.presensi.index')}}">
-                                            Presensi Seminar KP</a>
+                                        <i class="si si-user-following"></i>Presensi Seminar KP</a>
                                     </li>
                                     <li>
                                         <a class="{{ request()->is('koordinator/kp/laporan') || request()->is('koordinator/kp/laporan/*') ? ' active' : '' }}" href="{{route('admin.laporan.index')}}">
-                                            Laporan KP</a>
+                                        <i class="si si-folder-alt"></i>Laporan KP</a>
                                     </li>
                                     <li>
                                         <a class="{{ request()->is('koordinator/kp/nilaikp') ? ' active' : '' }}" href="{{route('admin.nilaikp.index')}}">
-                                            Nilai KP</a>
+                                        <i class="si si-envelope-open"></i>Nilai KP</a>
                                     </li>
-                                </ul>
-                            </li>
+                                    <li>
+                                        <a class="{{ request()->is('koordinator/kp/nilaikp') ? ' active' : '' }}" href="{{url('koordinatorkpdaftarhadir')}}">
+                                        <i class="si si-user-following"></i>Klarifikasi Daftar Hadir KP</a>
+                                    </li>
+                                
                             @endcan
                             @can('koordinatorta')
                             <li class="nav-main-heading">
@@ -753,10 +759,10 @@
             <!-- Footer -->
             <footer id="page-footer" class="opacity-0">
                 <div class="content py-20 font-size-sm clearfix">
-                    <div class="text-center">
+                    <!-- <div class="text-center">
                         &copy; <span class="js-year-copy">2020</span>
                         <a class="font-w600" href="https://www.instagram.com/ydhiksm/" target="_blank">Yudhi Kusuma</a>. All rights reserved.
-                    </div>
+                    </div> -->
                 </div>
             </footer>
             <!-- END Footer -->
